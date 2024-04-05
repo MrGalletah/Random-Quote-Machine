@@ -66,7 +66,7 @@ function App() {
         </main>
         <div className="tooltip btn fixed">
           <span className="tooltiptext">Here's the code </span>
-          <a className="codeBtn" href="https://google.com" target="_blank">
+          <a className="codeBtn" href="https://github.com/MrGalletah/Random-Quote-Machine" target="_blank">
             <svg
               viewBox="0 0 48 48"
               id="Layer_2"
