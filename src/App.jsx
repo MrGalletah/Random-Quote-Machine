@@ -1,9 +1,24 @@
 import "./App.css";
 import { useState } from "react";
+import { motion } from "framer-motion";
+
+const title = "Let's generate a bunch of quotes!";
+const subtitle = "And some colors too!! 😊";
+
+function splitStrWithRegex(str) {
+  const characters = [];
+  const regex = /[\s\S]/gu;
+
+  let match;
+  while ((match = regex.exec(str)) !== null) {
+    characters.push(match[0]);
+  }
+  return characters;
+}
 
 function App() {
   const [author, setAuthor] = useState();
-  const [color, setColor] = useState();
+  const [color, setColor] = useState("");
   const [quote, setQuote] = useState();
   const [visibility, setVisibility] = useState(false);
 
@@ -34,11 +49,53 @@ function App() {
     }
   }
 
+  const titleChars = splitStrWithRegex(title).map((char, index) => ({
+    char,
+    index,
+  }));
+  const subtitleChars = splitStrWithRegex(subtitle).map((char, index) => ({
+    char,
+    index,
+  }));
+
+  const charVariants = {
+    hidden: { opacity: 0 },
+    reveal: { opacity: 1 },
+  };
+
   return (
     <>
       <div className="body" style={{ backgroundColor: color }}>
-        <h1>Let's generate a bunch of quotes!</h1>
-        <h3>And some colors too!! 😊</h3>
+        <motion.h1
+          initial="hidden"
+          whileInView="reveal"
+          transition={{ staggerChildren: 0.02 }}
+        >
+          {titleChars.map(({ char, index }) => (
+            <motion.span
+              key={`title-char-${index}`}
+              transition={{ duration: 0.5 }}
+              variants={charVariants}
+            >
+              {char}
+            </motion.span>
+          ))}
+        </motion.h1>
+        <motion.h3
+          initial="hidden"
+          whileInView="reveal"
+          transition={{ staggerChildren: 0.02 }}
+        >
+          {subtitleChars.map(({ char, index }) => (
+            <motion.span
+              key={`subtitle-char-${index}`}
+              transition={{ duration: 0.35 }}
+              variants={charVariants}
+            >
+              {char}
+            </motion.span>
+          ))}
+        </motion.h3>
         <main>
           <div className="author">
             <h4 style={{ color: color }}>
@@ -64,9 +121,20 @@ function App() {
             </button>
           </div>
         </main>
+        {color === "" ? null : (
+          <div className="currentColor">
+            <div>Current color: </div>
+            <span>{color}</span>
+          </div>
+        )}
+
         <div className="tooltip btn fixed">
           <span className="tooltiptext">Here's the code </span>
-          <a className="codeBtn" href="https://github.com/MrGalletah/Random-Quote-Machine" target="_blank">
+          <a
+            className="codeBtn"
+            href="https://github.com/MrGalletah/Random-Quote-Machine"
+            target="_blank"
+          >
             <svg
               viewBox="0 0 48 48"
               id="Layer_2"

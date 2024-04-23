@@ -91,7 +91,7 @@ h3 {
 .fixed {
   position: fixed;
   bottom: 5%;
-  right: 50%;
+  right: 49%;
 }
 .btn{
   background-color: white;
@@ -198,4 +198,15 @@ h3 {
   .body {
     height: 180vh;
   }
+}
+
+.currentColor{
+  margin-top: 1rem;
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .5rem;
+}
+.githubDiv{
+  display: flex;
 }
